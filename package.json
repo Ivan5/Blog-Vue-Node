@@ -1,0 +1,19 @@
+{
+  "name": "blog-vue-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.5.14"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
