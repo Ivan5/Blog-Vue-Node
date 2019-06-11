@@ -51,6 +51,26 @@ app.get("/api/posts/all", (req, res) => {
   });
 });
 
+app.post("/api/post/update", (req, res) => {
+  let id = req.body._id;
+  let payload = req.body;
+  PostModel.findByIdAndUpdate(id, payload, (err, result) => {
+    if (err) res.send({ success: false, msg: err });
+
+    res.send({ success: true, result });
+  });
+});
+
+app.post("/api/post/remove", (req, res) => {
+  let id = req.body._id;
+
+  PostModel.findById(id).remove((err, result) => {
+    if (err) res.send({ success: false, msg: err });
+
+    res.send({ success: true, result });
+  });
+});
+
 //Start server
 app.listen(process.env.PORT || 3000, err => {
   if (err) console.error(err);
