@@ -19,6 +19,8 @@ const PostSchema = mongoose.Schema({
   timestamp: String
 });
 
+const PostModel = mongoose.model("post", PostSchema);
+
 //Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -31,6 +33,22 @@ app.post("/api/post/new", (req, res) => {
     author: req.body.author,
     timestamp: new Date().getTime() * 1000
   };
+
+  let newPost = new PostModel(payload);
+
+  newPost.save((err, result) => {
+    if (err) res.send({ success: false, msg: err });
+
+    res.send({ success: true, result });
+  });
+});
+
+app.get("/api/posts/all", (req, res) => {
+  PostModel.find((err, result) => {
+    if (err) res.send({ success: false, msg: err });
+
+    res.send({ success: true, result });
+  });
 });
 
 //Start server
