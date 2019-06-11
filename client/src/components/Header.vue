@@ -42,7 +42,7 @@ header {
 
   .center {
     h3 {
-      font-size: 32px;
+      font-size: 22px;
       font-style: italic;
       font-weight: 400;
       margin: 0;
