@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <Header/>
-    <Latest/>
-    <Posts/>
+    <Latest :posts="posts"/>
+    <Posts :posts="posts" :count="postCount" @showMore="this.showMore"/>
   </div>
 </template>
 
@@ -13,7 +13,40 @@ import Posts from "./components/Posts.vue";
 
 export default {
   name: "app",
-  components: { Header, Latest, Posts }
+  data() {
+    return {
+      api_url: "http://localhost:3000/api/",
+      posts: [],
+      postCount: 6
+    };
+  },
+  components: { Header, Latest, Posts },
+  methods: {
+    getPosts() {
+      fetch(this.api_url + "posts/all")
+        .then(data => {
+          return data.json();
+        })
+        .then(json => {
+          this.posts = json.result;
+          this.posts = this.posts.sort((a, b) => {
+            if (a.timestamp < b.timestamp) {
+              return 1;
+            }
+            if (a.timestamp > b.timestamp) {
+              return -1;
+            }
+            return 0;
+          });
+        });
+    },
+    showMore() {
+      this.postCount += 2;
+    }
+  },
+  beforeMount() {
+    this.getPosts();
+  }
 };
 </script>
 

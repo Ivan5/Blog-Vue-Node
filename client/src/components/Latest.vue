@@ -1,20 +1,20 @@
 <template>
-  <div class="latest">
+  <section class="latest">
     <h1>Latest Posts</h1>
-    <div class="posts">
+    <div class="posts" v-if="posts.length >= 1">
       <div class="post">
         <div
           class="image"
           :style="{backgroundImage:`url(${require('../assets/post-1-image@2x.png')})`}"
         ></div>
-        <h4>Plan Ahead</h4>
+        <h4 :title="posts[0].title">{{posts[0].title}}</h4>
       </div>
       <div class="post col-2 row-2">
         <div
           class="image"
           :style="{backgroundImage:`url(${require('../assets/post-2-image@2x.png')})`}"
         ></div>
-        <h4>VueJS Fundamentals</h4>
+        <h4 :title="posts[1].title">{{posts[1].title}}</h4>
       </div>
       <div class="post row-2">
         <div
@@ -45,12 +45,16 @@
         <h4>Learn to take a break</h4>
       </div>
     </div>
-  </div>
+    <div class="posts" else>
+      <p>Not enough posts to display</p>
+    </div>
+  </section>
 </template>
 
 <script>
 export default {
-  name: "latest"
+  name: "latest",
+  props: ["posts"]
 };
 </script>
 
@@ -89,6 +93,13 @@ export default {
         height: 50px;
         line-height: 50px;
         margin: 0px;
+        overflow: hidden;
+        color: #171717;
+
+        font-size: 20px;
+        font-weight: 400;
+
+        text-overflow: ellipsis;
       }
       &.col-2 {
         grid-column: span 2;
