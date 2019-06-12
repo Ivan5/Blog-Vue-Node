@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const app = express();
 mongoose.connect("mongodb://localhost:27017/blog", { useNewUrlParser: true });
@@ -22,6 +23,7 @@ const PostSchema = mongoose.Schema({
 const PostModel = mongoose.model("post", PostSchema);
 
 //Middleware
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
